@@ -1,9 +1,5 @@
 ﻿using Frankfurter.API.Client.Configuration;
-using Frankfurter.API.Client.Domain;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Frankfurter.API.Client.Infraestructure
@@ -19,9 +15,9 @@ namespace Frankfurter.API.Client.Infraestructure
             _client = new RestClient(GetConfigurations());
         }
 
-        public FrankfurterClientHttpClient(CurrencyCode currency)
+        public FrankfurterClientHttpClient()
         {
-            _configuration = new FrankfurterClientConfiguration(currency);
+            _configuration = new FrankfurterClientConfiguration();
             _client = new RestClient(GetConfigurations());
         }
 

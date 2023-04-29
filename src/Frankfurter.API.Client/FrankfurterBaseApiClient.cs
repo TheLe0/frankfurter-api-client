@@ -1,10 +1,5 @@
 ﻿using Frankfurter.API.Client.Configuration;
-using Frankfurter.API.Client.Domain;
 using Frankfurter.API.Client.Infraestructure;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Frankfurter.API.Client
@@ -23,9 +18,9 @@ namespace Frankfurter.API.Client
             _httpClient = restApiClient;
         }
 
-        protected FrankfurterBaseApiClient(CurrencyCode currency)
+        protected FrankfurterBaseApiClient()
         {
-            _httpClient = new FrankfurterClientHttpClient(currency);
+            _httpClient = new FrankfurterClientHttpClient();
         }
 
         protected Task<T> GetAsync<T>(string endpoint)

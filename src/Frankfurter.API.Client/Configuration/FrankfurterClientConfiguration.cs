@@ -1,27 +1,23 @@
-﻿using Frankfurter.API.Client.Domain;
-using Frankfurter.API.Client.Resources;
+﻿using Frankfurter.API.Client.Resources;
 
 namespace Frankfurter.API.Client.Configuration
 {
     public class FrankfurterClientConfiguration
     {
         public string BaseApiUrl { get; set; }
-        public CurrencyCode DefaultCurrency { get; set; }
         public bool ThrowOnAnyError { get; set; }
         public int MaxTimeout { get; set; }
 
-        public FrankfurterClientConfiguration(string baseUrl, CurrencyCode defaultCurrency)
+        public FrankfurterClientConfiguration(string baseUrl)
         {
             BaseApiUrl = baseUrl;
-            DefaultCurrency = defaultCurrency;
 
             SetupDefaultConfigs();
         }
 
-        public FrankfurterClientConfiguration(CurrencyCode defaultCurrency)
+        public FrankfurterClientConfiguration()
         {
             BaseApiUrl = Routes.BaseUrl;
-            DefaultCurrency = defaultCurrency;
 
             SetupDefaultConfigs();
         }

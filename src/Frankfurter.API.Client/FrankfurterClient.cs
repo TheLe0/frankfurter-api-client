@@ -11,7 +11,7 @@ namespace Frankfurter.API.Client
 {
     public class FrankfurterClient : FrankfurterBaseApiClient, IFrankfurterClient
     {
-        public FrankfurterClient(CurrencyCode currency) : base(currency) { }
+        public FrankfurterClient() : base() { }
         public FrankfurterClient(FrankfurterClientConfiguration configuration) : base(configuration) { }
         public FrankfurterClient(IFrankfurterClientHttpClient restApiClient) : base(restApiClient) { }
 
