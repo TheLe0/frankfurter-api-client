@@ -126,9 +126,9 @@ namespace Frankfurter.API.Client.Resources {
         /// <summary>
         ///   Looks up a localized string similar to DKK.
         /// </summary>
-        internal static string Danish_Krone {
+        internal static string DanishKrone {
             get {
-                return ResourceManager.GetString("Danish Krone", resourceCulture);
+                return ResourceManager.GetString("DanishKrone", resourceCulture);
             }
         }
         
@@ -252,9 +252,9 @@ namespace Frankfurter.API.Client.Resources {
         /// <summary>
         ///   Looks up a localized string similar to PLN.
         /// </summary>
-        internal static string PolishZłoty {
+        internal static string PolishZloty {
             get {
-                return ResourceManager.GetString("PolishZłoty", resourceCulture);
+                return ResourceManager.GetString("PolishZloty", resourceCulture);
             }
         }
         

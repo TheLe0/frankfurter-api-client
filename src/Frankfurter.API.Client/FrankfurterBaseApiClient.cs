@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Frankfurter.API.Client
 {
@@ -25,6 +26,11 @@ namespace Frankfurter.API.Client
         protected FrankfurterBaseApiClient(CurrencyCode currency)
         {
             _httpClient = new FrankfurterClientHttpClient(currency);
+        }
+
+        protected Task<T> GetAsync<T>(string endpoint)
+        {
+            return _httpClient.GetAsync<T>(endpoint);
         }
     }
 }

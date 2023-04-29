@@ -1,4 +1,5 @@
 ﻿using Frankfurter.API.Client.Domain;
+using Frankfurter.API.Client.Resources;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,5 +9,6 @@ namespace Frankfurter.API.Client
 {
     public interface IFrankfurterClient
     {
+        public Task<IEnumerable<Currency>> GetAllAvaliableCurrenciesAsync();
     }
 }

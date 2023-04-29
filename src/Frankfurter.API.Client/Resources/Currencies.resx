@@ -138,7 +138,7 @@
   <data name="CzechKoruna" xml:space="preserve">
     <value>CZK</value>
   </data>
-  <data name="Danish Krone" xml:space="preserve">
+  <data name="DanishKrone" xml:space="preserve">
     <value>DKK</value>
   </data>
   <data name="Euro" xml:space="preserve">
@@ -180,7 +180,7 @@
   <data name="PhilippinePeso" xml:space="preserve">
     <value>PHP</value>
   </data>
-  <data name="PolishZłoty" xml:space="preserve">
+  <data name="PolishZloty" xml:space="preserve">
     <value>PLN</value>
   </data>
   <data name="RomanianLeu" xml:space="preserve">

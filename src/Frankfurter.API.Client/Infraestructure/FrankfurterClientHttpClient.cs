@@ -4,6 +4,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Frankfurter.API.Client.Infraestructure
 {
@@ -22,6 +23,14 @@ namespace Frankfurter.API.Client.Infraestructure
         {
             _configuration = new FrankfurterClientConfiguration(currency);
             _client = new RestClient(GetConfigurations());
+        }
+
+        public Task<T> GetAsync<T>(string endpoint)
+        {
+            var fullEndpoint = _configuration.BaseApiUrl
+                + endpoint;
+
+            return _client.GetJsonAsync<T>(fullEndpoint);
         }
 
         private RestClientOptions GetConfigurations()
