@@ -15,11 +15,17 @@ namespace Frankfurter.API.Client.Extensions
             fullEndPoint.AddParameterSeparator(ref isFirstParameter);
             fullEndPoint.Append("amount=" + amount);
 
-            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-            fullEndPoint.Append("from=" + from.ToString());
+            if (from != CurrencyCode.None)
+            {
+                fullEndPoint.AddParameterSeparator(ref isFirstParameter);
+                fullEndPoint.Append("from=" + from.ToString());
+            }
 
-            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-            fullEndPoint.Append("to=" + to.ToString());
+            if (to != CurrencyCode.None)
+            {
+                fullEndPoint.AddParameterSeparator(ref isFirstParameter);
+                fullEndPoint.Append("to=" + to.ToString());
+            }
 
             return fullEndPoint.ToString();
         }
