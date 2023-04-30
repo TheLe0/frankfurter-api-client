@@ -1,11 +1,9 @@
-﻿using Frankfurter.API.Client.Fixtures.Core;
+﻿using Frankfurter.API.Client.Domain;
+using Frankfurter.API.Client.DTO.Response;
+using Frankfurter.API.Client.Fixtures.Core;
+using Frankfurter.API.Client.Fixtures.DTO;
 using Frankfurter.API.Client.Infraestructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace Frankfurter.API.Client.UnitTest
 {
@@ -31,7 +29,7 @@ namespace Frankfurter.API.Client.UnitTest
 
             Assert.NotNull(currencies);
             Assert.NotEmpty(currencies);
-            Assert.True(currencies.Count() > 0);
+            Assert.True(currencies.Any());
         }
 
         [Fact]
@@ -44,6 +42,53 @@ namespace Frankfurter.API.Client.UnitTest
             var currencies = await _client.GetAllAvaliableCurrenciesAsync();
 
             Assert.Null(currencies);
+        }
+
+        [InlineData(1, 3, 9)]
+        [InlineData(10, 9, 7)]
+        [InlineData(1, 3, 30)]
+        [InlineData(7, 30, 3)]
+        [InlineData(15.67, 4, 30)]
+        [Theory]
+        public async void CurrencyConvert_Success(decimal amount, int baseCurrency, int conversionCurrency)
+        {
+            var fromCurrency = (CurrencyCode) baseCurrency;
+            var toCurrency = (CurrencyCode) conversionCurrency;
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync(ExchangeBaseApiResponseFixture
+                .GenerateForExchangeBaseApiResponse(amount, fromCurrency, toCurrency));
+
+            var exchange = await _client
+                .CurrencyConvert(amount, fromCurrency, toCurrency);
+
+            Assert.NotNull(exchange);
+            Assert.Equal(exchange.ReferenceAmount, amount);
+            Assert.Equal(exchange.ReferenceCurrency, fromCurrency);
+            Assert.NotEmpty(exchange.Rates);
+        }
+
+        [InlineData(1, 3, 9)]
+        [InlineData(10, 9, 7)]
+        [InlineData(1, 3, 30)]
+        [InlineData(7, 30, 3)]
+        [InlineData(15.67, 4, 30)]
+        [Theory]
+        public async void CurrencyConvert_Fail_NullResponse(decimal amount, int baseCurrency, int conversionCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+            var toCurrency = (CurrencyCode)conversionCurrency;
+
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync((ExchangeBaseApiResponse) null);
+
+            var exchange = await _client
+                .CurrencyConvert(amount, fromCurrency, toCurrency);
+
+            Assert.Null(exchange);
         }
     }
 }
