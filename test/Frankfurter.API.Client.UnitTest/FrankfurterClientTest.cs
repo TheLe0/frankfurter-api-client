@@ -90,5 +90,51 @@ namespace Frankfurter.API.Client.UnitTest
 
             Assert.Null(exchange);
         }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15.67, 4)]
+        [Theory]
+        public async void CurrencyConvertByDate_Success(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+            var referenceDate = new DateTime(2014, 1, 1);
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync(ExchangeBaseApiResponseFixture
+                .GenerateForExchangeByDateApiResponse(referenceDate, amount, fromCurrency));
+
+            var exchange = await _client
+                .CurrencyConvertByDateAsync(referenceDate, amount, fromCurrency);
+
+            Assert.NotNull(exchange);
+            Assert.Equal(exchange.ReferenceAmount, amount);
+            Assert.Equal(exchange.ReferenceCurrency, fromCurrency);
+            Assert.NotEmpty(exchange.Rates);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDate_Fail_NullResponse(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+            var referenceDate = new DateTime(2014, 1, 1);
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync((ExchangeBaseApiResponse)null);
+
+            var exchange = await _client
+                .CurrencyConvertByDateAsync(referenceDate, amount, fromCurrency);
+
+            Assert.Null(exchange);
+        }
     }
 }

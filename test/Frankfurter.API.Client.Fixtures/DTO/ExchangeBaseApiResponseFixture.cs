@@ -21,6 +21,18 @@ namespace Frankfurter.API.Client.Fixtures.DTO
                 .Generate();
         }
 
+        public static ExchangeBaseApiResponse GenerateForExchangeByDateApiResponse(DateTime referenceDate, decimal referenceAmount, CurrencyCode baseCurrency)
+        {
+            return new Faker<ExchangeBaseApiResponse>()
+                .RuleFor(u => u.Amount, _ => referenceAmount)
+                .RuleFor(u => u.Currency, _ => baseCurrency.ToString())
+                .RuleFor(u => u.ReferenceDate, _ => referenceDate)
+                .RuleFor(u => u.StartDate, (f) => f.Date.Past(1))
+                .RuleFor(u => u.EndDate, _ => DateTime.Now)
+                .RuleFor(u => u.Rates, (f) => GenerateRatesForExchangeBaseApiResponse(f.Random.UInt(1, 100), (CurrencyCode) f.Random.UInt(1, 30)))
+                .Generate();
+        }
+
         private static JsonObject GenerateRatesForExchangeBaseApiResponse(uint randomAmount, CurrencyCode toCurrencyCode)
         {
             var json = new StringBuilder();
