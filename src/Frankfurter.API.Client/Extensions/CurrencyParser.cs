@@ -26,5 +26,25 @@ namespace Frankfurter.API.Client.Extensions
 
             return currencies;
         }
+
+        internal static IEnumerable<CurrencyRate> ToCurrencyRateList(this JsonObject jsonObject)
+        {
+            var currencies = new List<CurrencyRate>();
+
+            var listJsonObjs = jsonObject.ToArray();
+
+            for (var i = 0; i < listJsonObjs.Length; i++)
+            {
+                currencies.Add(
+                    new CurrencyRate
+                    {
+                        Amount = (decimal) listJsonObjs[i].Value,
+                        CurrencyCode = listJsonObjs[i].Key.ToCurrencyCode()
+                    }
+                );
+            }
+
+            return currencies;
+        }
     }
 }

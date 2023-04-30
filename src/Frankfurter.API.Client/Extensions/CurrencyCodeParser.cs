@@ -71,5 +71,42 @@ namespace Frankfurter.API.Client.Extensions
             else
                 return CurrencyCode.None;
         }
+
+        internal static string ToString(this CurrencyCode currencyCode)
+        {
+            return currencyCode switch
+            {
+                CurrencyCode.AUD => Currencies.AustralianDollar,
+                CurrencyCode.BRL => Currencies.BrazilianReal,
+                CurrencyCode.GBP => Currencies.BritishPound,
+                CurrencyCode.CAD => Currencies.CanadianDollar,
+                CurrencyCode.CNY => Currencies.ChineseRenminbiYuan,
+                CurrencyCode.CZK => Currencies.CzechKoruna,
+                CurrencyCode.DKK => Currencies.DanishKrone,
+                CurrencyCode.EUR => Currencies.Euro,
+                CurrencyCode.HKD => Currencies.HongKongDollar,
+                CurrencyCode.HUF => Currencies.HungarianForint,
+                CurrencyCode.ISK => Currencies.IcelandicKrona,
+                CurrencyCode.INR => Currencies.IndianRupee,
+                CurrencyCode.IDR => Currencies.IndonesianRupiah,
+                CurrencyCode.ILS => Currencies.IsraeliNewSheqel,
+                CurrencyCode.JPY => Currencies.JapaneseYen,
+                CurrencyCode.MYR => Currencies.MalaysianRinggit,
+                CurrencyCode.MXN => Currencies.MexicanPeso,
+                CurrencyCode.NZD => Currencies.NewZealandDollar,
+                CurrencyCode.NOK => Currencies.NorwegianKrone,
+                CurrencyCode.PHP => Currencies.PhilippinePeso,
+                CurrencyCode.PLN => Currencies.PolishZloty,
+                CurrencyCode.RON => Currencies.RomanianLeu,
+                CurrencyCode.SGD => Currencies.SingaporeDollar,
+                CurrencyCode.ZAR => Currencies.SouthAfricanRand,
+                CurrencyCode.SEK => Currencies.SwedishKrona,
+                CurrencyCode.CHF => Currencies.SwissFranc,
+                CurrencyCode.THB => Currencies.ThaiBaht,
+                CurrencyCode.TRY => Currencies.TurkishLira,
+                CurrencyCode.USD => Currencies.UnitedStatesDollar,
+                _ => string.Empty
+            }; 
+        }
     }
 }
