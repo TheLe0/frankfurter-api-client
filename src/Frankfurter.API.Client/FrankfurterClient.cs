@@ -59,5 +59,39 @@ namespace Frankfurter.API.Client
 
             return response.ToExchange();
         }
+
+        public async Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from)
+        {
+            var endpoint = Routes.LatestEndpoint
+                .ConversionEndpointWithParameters(
+                amount,
+                from,
+                CurrencyCode.None
+            );
+
+            var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
+                .ConfigureAwait(false);
+
+            if (response.IsNull()) return null;
+
+            return response.ToExchange();
+        }
+
+        public async Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to)
+        {
+            var endpoint = Routes.LatestEndpoint
+                .ConversionEndpointWithParameters(
+                    amount,
+                    from,
+                    to
+            );
+
+            var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
+                .ConfigureAwait(false);
+
+            if (response.IsNull()) return null;
+
+            return response.ToExchange();
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace Frankfurter.API.Client
         Task<IEnumerable<Currency>> GetAllAvaliableCurrenciesAsync();
         Task<Exchange> CurrencyConvertAsync(decimal amount, CurrencyCode from, CurrencyCode to);
         Task<Exchange> CurrencyConvertByDateAsync(DateTime referenceDate, decimal amount, CurrencyCode from);
+        Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from);
+        Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to);
     }
 }
