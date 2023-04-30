@@ -33,6 +33,19 @@ namespace Frankfurter.API.Client.Fixtures.DTO
                 .Generate();
         }
 
+        public static ExchangeBaseApiResponse GenerateNullResponse()
+        {
+            return new ExchangeBaseApiResponse
+            {
+                Amount = decimal.Zero,
+                Currency = null,
+                ReferenceDate = DateTime.MinValue,
+                StartDate = DateTime.MinValue,
+                EndDate = DateTime.MinValue,
+                Rates = null
+            };
+        }
+
         private static JsonObject GenerateRatesForExchangeBaseApiResponse(uint randomAmount, CurrencyCode toCurrencyCode)
         {
             var json = new StringBuilder();

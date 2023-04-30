@@ -1,4 +1,5 @@
-﻿using Frankfurter.API.Client.Domain;
+﻿using Bogus.DataSets;
+using Frankfurter.API.Client.Domain;
 using Frankfurter.API.Client.DTO.Response;
 using Frankfurter.API.Client.Fixtures.Core;
 using Frankfurter.API.Client.Fixtures.DTO;
@@ -133,6 +134,106 @@ namespace Frankfurter.API.Client.UnitTest
 
             var exchange = await _client
                 .CurrencyConvertByDateAsync(referenceDate, amount, fromCurrency);
+
+            Assert.Null(exchange);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByLastPublishedDateAsync_Success(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync(ExchangeBaseApiResponseFixture
+                .GenerateForExchangeBaseApiResponse(amount, fromCurrency, CurrencyCode.USD));
+
+            var exchange = await _client
+                .CurrencyConvertByLastPublishedDateAsync(amount, fromCurrency);
+
+            Assert.NotNull(exchange);
+            Assert.Equal(exchange.ReferenceAmount, amount);
+            Assert.Equal(exchange.ReferenceCurrency, fromCurrency);
+            Assert.NotEmpty(exchange.Rates);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByLastPublishedDateAsync_Fail_NullResponse(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+            var referenceDate = new DateTime(2014, 1, 1);
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync(ExchangeBaseApiResponseFixture.GenerateNullResponse());
+
+            var exchange = await _client
+                .CurrencyConvertByLastPublishedDateAsync(amount, fromCurrency);
+
+            Assert.Null(exchange);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByLastPublishedDateAsync_WithToList_Success(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            var toCurrencies = new List<CurrencyCode>();
+
+            toCurrencies.Add(CurrencyCode.EUR);
+            toCurrencies.Add(CurrencyCode.USD);
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync(ExchangeBaseApiResponseFixture
+                .GenerateForExchangeBaseApiResponse(amount, fromCurrency, CurrencyCode.USD));
+
+            var exchange = await _client
+                .CurrencyConvertByLastPublishedDateAsync(amount, fromCurrency, toCurrencies);
+
+            Assert.NotNull(exchange);
+            Assert.Equal(exchange.ReferenceAmount, amount);
+            Assert.Equal(exchange.ReferenceCurrency, fromCurrency);
+            Assert.NotEmpty(exchange.Rates);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByLastPublishedDateAsync_WithToList_Fail_NullResponse(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            var toCurrencies = new List<CurrencyCode>
+            {
+                CurrencyCode.EUR,
+                CurrencyCode.USD
+            };
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync(ExchangeBaseApiResponseFixture.GenerateNullResponse());
+
+            var exchange = await _client
+                .CurrencyConvertByLastPublishedDateAsync(amount, fromCurrency, toCurrencies);
 
             Assert.Null(exchange);
         }
