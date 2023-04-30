@@ -55,7 +55,7 @@ namespace Frankfurter.API.Client
             var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
                 .ConfigureAwait(false);
 
-            if (response == null) return null;
+            if (response.IsNull()) return null;
 
             return response.ToExchange();
         }
