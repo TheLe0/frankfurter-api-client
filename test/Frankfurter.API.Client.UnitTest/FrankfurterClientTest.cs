@@ -193,10 +193,11 @@ namespace Frankfurter.API.Client.UnitTest
         {
             var fromCurrency = (CurrencyCode)baseCurrency;
 
-            var toCurrencies = new List<CurrencyCode>();
-
-            toCurrencies.Add(CurrencyCode.EUR);
-            toCurrencies.Add(CurrencyCode.USD);
+            var toCurrencies = new List<CurrencyCode>
+            {
+                CurrencyCode.EUR,
+                CurrencyCode.USD
+            };
 
             _mockHttpClient.Setup(_ =>
                 _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))

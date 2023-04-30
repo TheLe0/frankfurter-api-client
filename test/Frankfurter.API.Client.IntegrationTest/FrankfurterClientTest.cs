@@ -96,5 +96,50 @@ namespace Frankfurter.API.Client.IntegrationTest
 
             Assert.Null(exchange);
         }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDateAsync_Success(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            var exchange = await _client
+                .CurrencyConvertByLastPublishedDateAsync(amount, fromCurrency);
+
+            Assert.NotNull(exchange);
+            Assert.Equal(exchange.ReferenceAmount, amount);
+            Assert.Equal(exchange.ReferenceCurrency, fromCurrency);
+            Assert.NotEmpty(exchange.Rates);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 27)]
+        [InlineData(1, 13)]
+        [InlineData(7, 28)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDateAsync_WithToList_Success(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            var toCurrencies = new List<CurrencyCode>
+            {
+                CurrencyCode.EUR,
+                CurrencyCode.USD
+            };
+
+            var exchange = await _client
+                .CurrencyConvertByLastPublishedDateAsync(amount, fromCurrency, toCurrencies);
+
+            Assert.NotNull(exchange);
+            Assert.Equal(exchange.Rates.Count(), toCurrencies.Count());
+            Assert.Equal(exchange.ReferenceAmount, amount);
+            Assert.Equal(exchange.ReferenceCurrency, fromCurrency);
+            Assert.NotEmpty(exchange.Rates);
+        }
     }
 }
