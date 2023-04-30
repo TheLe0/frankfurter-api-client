@@ -1,5 +1,6 @@
 ﻿using Frankfurter.API.Client.Domain;
 using Frankfurter.API.Client.Resources;
+
 namespace Frankfurter.API.Client.Extensions
 {
     internal static class CurrencyCodeParser

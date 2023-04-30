@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Frankfurter.API.Client\Frankfurter.API.Client.csproj" />
+  </ItemGroup>
+
 </Project>

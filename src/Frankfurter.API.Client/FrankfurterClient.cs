@@ -13,6 +13,7 @@ namespace Frankfurter.API.Client
     public class FrankfurterClient : FrankfurterBaseApiClient, IFrankfurterClient
     {
         public FrankfurterClient() : base() { }
+        public FrankfurterClient(string baseUrl) : base(baseUrl) { }
         public FrankfurterClient(FrankfurterClientConfiguration configuration) : base(configuration) { }
         public FrankfurterClient(IFrankfurterClientHttpClient restApiClient) : base(restApiClient) { }
 
