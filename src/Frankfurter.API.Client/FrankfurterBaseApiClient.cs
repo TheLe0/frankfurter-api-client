@@ -13,6 +13,12 @@ namespace Frankfurter.API.Client
             _httpClient = new FrankfurterClientHttpClient(configuration);
         }
 
+        protected FrankfurterBaseApiClient(string baseUrl)
+        {
+            _httpClient = new FrankfurterClientHttpClient(baseUrl);
+        }
+
+
         protected FrankfurterBaseApiClient(IFrankfurterClientHttpClient restApiClient)
         {
             _httpClient = restApiClient;
