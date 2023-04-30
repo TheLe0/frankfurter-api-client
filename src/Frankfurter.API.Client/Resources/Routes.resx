@@ -126,4 +126,7 @@
   <data name="LatestEndpoint" xml:space="preserve">
     <value>/latest</value>
   </data>
+  <data name="RootEndpoint" xml:space="preserve">
+    <value>/</value>
+  </data>
 </root>

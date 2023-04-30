@@ -10,6 +10,7 @@ namespace Frankfurter.API.Client
     public interface IFrankfurterClient
     {
         public Task<IEnumerable<Currency>> GetAllAvaliableCurrenciesAsync();
-        public Task<Exchange> CurrencyConvert(decimal amount, CurrencyCode from, CurrencyCode to);
+        public Task<Exchange> CurrencyConvertAsync(decimal amount, CurrencyCode from, CurrencyCode to);
+        public Task<Exchange> CurrencyConvertByDateAsync(DateTime referenceDate, decimal amount, CurrencyCode from);
     }
 }

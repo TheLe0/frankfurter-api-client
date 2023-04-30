@@ -86,5 +86,14 @@ namespace Frankfurter.API.Client.Resources {
                 return ResourceManager.GetString("LatestEndpoint", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /.
+        /// </summary>
+        internal static string RootEndpoint {
+            get {
+                return ResourceManager.GetString("RootEndpoint", resourceCulture);
+            }
+        }
     }
 }
