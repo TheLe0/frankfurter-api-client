@@ -52,7 +52,7 @@ namespace Frankfurter.API.Client.IntegrationTest
             var toCurrency = (CurrencyCode)conversionCurrency;
 
             var exchange = await _client
-                .CurrencyConvert(amount, fromCurrency, toCurrency);
+                .CurrencyConvertAsync(amount, fromCurrency, toCurrency);
 
             Assert.NotNull(exchange);
             Assert.Equal(exchange.ReferenceAmount, amount);

@@ -27,7 +27,7 @@ namespace Frankfurter.API.Client
             return response.ToCurrencyList();
         }
 
-        public async Task<Exchange> CurrencyConvert(decimal amount, CurrencyCode from, CurrencyCode to)
+        public async Task<Exchange> CurrencyConvertAsync(decimal amount, CurrencyCode from, CurrencyCode to)
         {
             var endpoint = Routes.LatestEndpoint.ConversionEndpointWithParameters(
                 amount,

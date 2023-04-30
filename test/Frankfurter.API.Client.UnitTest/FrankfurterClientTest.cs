@@ -61,7 +61,7 @@ namespace Frankfurter.API.Client.UnitTest
                 .GenerateForExchangeBaseApiResponse(amount, fromCurrency, toCurrency));
 
             var exchange = await _client
-                .CurrencyConvert(amount, fromCurrency, toCurrency);
+                .CurrencyConvertAsync(amount, fromCurrency, toCurrency);
 
             Assert.NotNull(exchange);
             Assert.Equal(exchange.ReferenceAmount, amount);
@@ -86,7 +86,7 @@ namespace Frankfurter.API.Client.UnitTest
                 .ReturnsAsync((ExchangeBaseApiResponse) null);
 
             var exchange = await _client
-                .CurrencyConvert(amount, fromCurrency, toCurrency);
+                .CurrencyConvertAsync(amount, fromCurrency, toCurrency);
 
             Assert.Null(exchange);
         }
