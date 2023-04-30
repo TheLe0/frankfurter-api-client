@@ -1,0 +1,30 @@
+name: Tests CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.0.x
+      - name: Restore dependencies
+        working-directory: ./src/Frankfurter.API.Client/
+        run: dotnet restore
+      - name: Build
+        working-directory: ./src/Frankfurter.API.Client/
+        run: dotnet build --no-restore
+      - name: Unit Tests
+        working-directory: ./test/Frankfurter.API.Client.IntegrationTest/
+        run: dotnet test
+      - name: Integration Tests
+        working-directory: ./test/Frankfurter.API.Client.IntegrationTest/
+        run: dotnet test
