@@ -4,6 +4,7 @@ using Frankfurter.API.Client.DTO.Response;
 using Frankfurter.API.Client.Extensions;
 using Frankfurter.API.Client.Infraestructure;
 using Frankfurter.API.Client.Resources;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace Frankfurter.API.Client
             return response.ToCurrencyList();
         }
 
-        public async Task<Exchange> CurrencyConvert(decimal amount, CurrencyCode from, CurrencyCode to)
+        public async Task<Exchange> CurrencyConvertAsync(decimal amount, CurrencyCode from, CurrencyCode to)
         {
             var endpoint = Routes.LatestEndpoint.ConversionEndpointWithParameters(
                 amount,
@@ -39,6 +40,22 @@ namespace Frankfurter.API.Client
                 .ConfigureAwait(false);
 
             if (response == null) return null;
+
+            return response.ToExchange();
+        }
+
+        public async Task<Exchange> CurrencyConvertByDateAsync(DateTime referenceDate, decimal amount, CurrencyCode from)
+        {
+            var endpoint = Routes.RootEndpoint.ConversionByDateEndpointWithParameters(
+                referenceDate,
+                amount,
+                from
+            );
+
+            var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
+                .ConfigureAwait(false);
+
+            if (response.IsNull()) return null;
 
             return response.ToExchange();
         }

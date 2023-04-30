@@ -1,4 +1,5 @@
 ﻿using Frankfurter.API.Client.Domain;
+using System;
 using System.Text;
 
 namespace Frankfurter.API.Client.Extensions
@@ -19,6 +20,22 @@ namespace Frankfurter.API.Client.Extensions
 
             fullEndPoint.AddParameterSeparator(ref isFirstParameter);
             fullEndPoint.Append("to=" + to.ToString());
+
+            return fullEndPoint.ToString();
+        }
+
+        internal static string ConversionByDateEndpointWithParameters(this string endpoint, DateTime referenceDate, decimal amount, CurrencyCode from)
+        {
+            var fullEndPoint = new StringBuilder(endpoint);
+            var isFirstParameter = true;
+
+            fullEndPoint.Append(referenceDate.ToString("yyyy-MM-dd"));
+
+            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
+            fullEndPoint.Append("amount=" + amount);
+
+            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
+            fullEndPoint.Append("from=" + from.ToString());
 
             return fullEndPoint.ToString();
         }

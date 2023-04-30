@@ -52,12 +52,49 @@ namespace Frankfurter.API.Client.IntegrationTest
             var toCurrency = (CurrencyCode)conversionCurrency;
 
             var exchange = await _client
-                .CurrencyConvert(amount, fromCurrency, toCurrency);
+                .CurrencyConvertAsync(amount, fromCurrency, toCurrency);
 
             Assert.NotNull(exchange);
             Assert.Equal(exchange.ReferenceAmount, amount);
             Assert.Equal(exchange.ReferenceCurrency, fromCurrency);
             Assert.NotEmpty(exchange.Rates);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDate_Success(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+            var referenceDate = new DateTime(2020, 2, 19);
+
+            var exchange = await _client
+                .CurrencyConvertByDateAsync(referenceDate, amount, fromCurrency);
+
+            Assert.NotNull(exchange);
+            Assert.Equal(exchange.ReferenceAmount, amount);
+            Assert.Equal(exchange.ReferenceCurrency, fromCurrency);
+            Assert.NotEmpty(exchange.Rates);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDate_Fail_NoDataFound(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+            var referenceDate = new DateTime(1995, 2, 19);
+
+            var exchange = await _client
+                .CurrencyConvertByDateAsync(referenceDate, amount, fromCurrency);
+
+            Assert.Null(exchange);
         }
     }
 }
