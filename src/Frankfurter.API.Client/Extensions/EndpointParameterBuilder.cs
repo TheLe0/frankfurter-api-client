@@ -1,5 +1,6 @@
 ﻿using Frankfurter.API.Client.Domain;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Frankfurter.API.Client.Extensions
@@ -25,6 +26,44 @@ namespace Frankfurter.API.Client.Extensions
             {
                 fullEndPoint.AddParameterSeparator(ref isFirstParameter);
                 fullEndPoint.Append("to=" + to.ToString());
+            }
+
+            return fullEndPoint.ToString();
+        }
+
+        internal static string ConversionEndpointWithParameters(this string endpoint, decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to)
+        {
+            var fullEndPoint = new StringBuilder(endpoint);
+            var isFirstParameter = true;
+
+            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
+            fullEndPoint.Append("amount=" + amount);
+
+            if (from != CurrencyCode.None)
+            {
+                fullEndPoint.AddParameterSeparator(ref isFirstParameter);
+                fullEndPoint.Append("from=" + from.ToString());
+            }
+
+            var isFirstElement = true;
+
+            foreach (var currency in to)
+            {
+                if (currency != CurrencyCode.None)
+                {
+                    if (isFirstElement)
+                    {
+                        fullEndPoint.AddParameterSeparator(ref isFirstParameter);
+                        fullEndPoint.Append("to=");
+                        isFirstElement = false;
+                    }
+                    else
+                    {
+                        fullEndPoint.Append(',');
+                    }
+
+                    fullEndPoint.Append(currency.ToString());
+                }
             }
 
             return fullEndPoint.ToString();

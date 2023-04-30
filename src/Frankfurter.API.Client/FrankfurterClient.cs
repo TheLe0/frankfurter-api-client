@@ -77,9 +77,21 @@ namespace Frankfurter.API.Client
             return response.ToExchange();
         }
 
-        public Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to)
+        public async Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to)
         {
-            throw new NotImplementedException();
+            var endpoint = Routes.LatestEndpoint
+                .ConversionEndpointWithParameters(
+                    amount,
+                    from,
+                    to
+            );
+
+            var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
+                .ConfigureAwait(false);
+
+            if (response.IsNull()) return null;
+
+            return response.ToExchange();
         }
     }
 }
