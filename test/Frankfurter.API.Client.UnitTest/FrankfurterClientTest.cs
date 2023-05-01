@@ -238,5 +238,155 @@ namespace Frankfurter.API.Client.UnitTest
 
             Assert.Null(exchange);
         }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDateIntervalAsync_Success(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            var startDate = new DateTime(2020,1,1);
+            var endDate = new DateTime(2021, 1, 1);
+
+            var toCurrencies = new List<CurrencyCode>
+            {
+                CurrencyCode.EUR,
+                CurrencyCode.USD
+            };
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync(ExchangeBaseApiResponseFixture
+                .GenerateForExchangeWithIntervalBaseApiResponse(
+                    amount,
+                    fromCurrency,
+                    startDate,
+                    endDate
+                ));
+
+            var exchange = await _client
+                .CurrencyConvertByDateIntervalAsync(
+                amount, 
+                fromCurrency, 
+                toCurrencies,
+                startDate,
+                endDate
+            );
+
+            Assert.NotNull(exchange);
+            Assert.NotEmpty(exchange);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDateIntervalAsync_Fail_NullResponse(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            var startDate = new DateTime(2020, 1, 1);
+
+            var toCurrencies = new List<CurrencyCode>
+            {
+                CurrencyCode.EUR,
+                CurrencyCode.USD
+            };
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync(ExchangeBaseApiResponseFixture.GenerateNullResponse());
+
+            var exchange = await _client
+                .CurrencyConvertByDateIntervalAsync(
+                amount,
+                fromCurrency,
+                toCurrencies,
+                startDate,
+                DateTime.Now
+            );
+
+            Assert.Null(exchange);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDateIntervalAsync_WithNoEndDate_Success(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            var startDate = new DateTime(2020, 1, 1);
+
+            var toCurrencies = new List<CurrencyCode>
+            {
+                CurrencyCode.EUR,
+                CurrencyCode.USD
+            };
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync(ExchangeBaseApiResponseFixture
+                .GenerateForExchangeWithIntervalBaseApiResponse(
+                    amount,
+                    fromCurrency,
+                    startDate,
+                    DateTime.Now
+                ));
+
+            var exchange = await _client
+                .CurrencyConvertByDateIntervalAsync(
+                amount,
+                fromCurrency,
+                toCurrencies,
+                startDate
+            );
+
+            Assert.NotNull(exchange);
+            Assert.NotEmpty(exchange);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 9)]
+        [InlineData(1, 13)]
+        [InlineData(7, 30)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDateIntervalAsync_WithNoEndDate_Fail_NullResponse(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            var startDate = new DateTime(2020, 1, 1);
+            var endDate = new DateTime(2021, 1, 1);
+
+            var toCurrencies = new List<CurrencyCode>
+            {
+                CurrencyCode.EUR,
+                CurrencyCode.USD
+            };
+
+            _mockHttpClient.Setup(_ =>
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                .ReturnsAsync(ExchangeBaseApiResponseFixture.GenerateNullResponse());
+
+            var exchange = await _client
+                .CurrencyConvertByDateIntervalAsync(
+                amount,
+                fromCurrency,
+                toCurrencies,
+                startDate
+            );
+
+            Assert.Null(exchange);
+        }
     }
 }
