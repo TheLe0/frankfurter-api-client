@@ -10,7 +10,12 @@ namespace Frankfurter.API.Client.IntegrationTest
 
         public FrankfurterClientTest()
         {
-            _client = new FrankfurterClient();
+            var configuration = new FrankfurterClientConfiguration
+            {
+                MaxTimeout = 50000
+            };
+
+            _client = new FrankfurterClient(configuration);
         }
 
         [Fact]
