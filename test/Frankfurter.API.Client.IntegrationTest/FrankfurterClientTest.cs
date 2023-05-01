@@ -10,7 +10,12 @@ namespace Frankfurter.API.Client.IntegrationTest
 
         public FrankfurterClientTest()
         {
-            _client = new FrankfurterClient();
+            var configuration = new FrankfurterClientConfiguration
+            {
+                MaxTimeout = 50000
+            };
+
+            _client = new FrankfurterClient(configuration);
         }
 
         [Fact]
@@ -140,6 +145,70 @@ namespace Frankfurter.API.Client.IntegrationTest
             Assert.Equal(exchange.ReferenceAmount, amount);
             Assert.Equal(exchange.ReferenceCurrency, fromCurrency);
             Assert.NotEmpty(exchange.Rates);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 27)]
+        [InlineData(1, 13)]
+        [InlineData(7, 28)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDateIntervalAsync_Success(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            var startDate = new DateTime(2020, 1, 1);
+            var endDate = new DateTime(2021, 1, 1);
+
+            var toCurrencies = new List<CurrencyCode>
+            {
+                CurrencyCode.EUR,
+                CurrencyCode.USD
+            };
+
+            var exchange = await _client
+                .CurrencyConvertByDateIntervalAsync
+                (
+                    amount, 
+                    fromCurrency, 
+                    toCurrencies,
+                    startDate,
+                    endDate
+                );
+
+            Assert.NotNull(exchange);
+            Assert.NotEmpty(exchange);
+        }
+
+        [InlineData(1, 3)]
+        [InlineData(10, 27)]
+        [InlineData(1, 13)]
+        [InlineData(7, 28)]
+        [InlineData(15, 4)]
+        [Theory]
+        public async void CurrencyConvertByDateIntervalAsync_WithNoEndDate_Success(decimal amount, int baseCurrency)
+        {
+            var fromCurrency = (CurrencyCode)baseCurrency;
+
+            var startDate = new DateTime(2020, 1, 1);
+
+            var toCurrencies = new List<CurrencyCode>
+            {
+                CurrencyCode.EUR,
+                CurrencyCode.USD
+            };
+
+            var exchange = await _client
+                .CurrencyConvertByDateIntervalAsync
+                (
+                    amount,
+                    fromCurrency,
+                    toCurrencies,
+                    startDate
+                );
+
+            Assert.NotNull(exchange);
+            Assert.NotEmpty(exchange);
         }
     }
 }

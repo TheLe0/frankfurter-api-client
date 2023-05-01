@@ -85,6 +85,49 @@ namespace Frankfurter.API.Client.Extensions
             return fullEndPoint.ToString();
         }
 
+        internal static string ConversionByDateIntervalEndpointWithParameters(this string endpoint,  decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to, DateTime startDate, DateTime? endDate = null)
+        {
+            var fullEndPoint = new StringBuilder(endpoint);
+            var isFirstParameter = true;
+
+            fullEndPoint.Append(startDate.ToString("yyyy-MM-dd"));
+            fullEndPoint.Append("..");
+
+            if (endDate != null)
+            {
+                fullEndPoint.Append(endDate?.ToString("yyyy-MM-dd"));
+            }
+
+            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
+            fullEndPoint.Append("amount=" + amount);
+
+            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
+            fullEndPoint.Append("from=" + from.ToString());
+
+            var isFirstElement = true;
+
+            foreach (var currency in to)
+            {
+                if (currency != CurrencyCode.None)
+                {
+                    if (isFirstElement)
+                    {
+                        fullEndPoint.AddParameterSeparator(ref isFirstParameter);
+                        fullEndPoint.Append("to=");
+                        isFirstElement = false;
+                    }
+                    else
+                    {
+                        fullEndPoint.Append(',');
+                    }
+
+                    fullEndPoint.Append(currency.ToString());
+                }
+            }
+
+            return fullEndPoint.ToString();
+        }
+
         private static void AddParameterSeparator(this StringBuilder parameter, ref bool isFirstParameter)
         {
             if (isFirstParameter)

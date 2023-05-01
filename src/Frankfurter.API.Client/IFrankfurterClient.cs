@@ -12,5 +12,6 @@ namespace Frankfurter.API.Client
         Task<Exchange> CurrencyConvertByDateAsync(DateTime referenceDate, decimal amount, CurrencyCode from);
         Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from);
         Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to);
+        Task<IEnumerable<Exchange>> CurrencyConvertByDateIntervalAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to, DateTime startDate, DateTime? endDate = null);
     }
 }

@@ -93,5 +93,24 @@ namespace Frankfurter.API.Client
 
             return response.ToExchange();
         }
+
+        public async Task<IEnumerable<Exchange>> CurrencyConvertByDateIntervalAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to, DateTime startDate, DateTime? endDate = null)
+        {
+            var endpoint = Routes.RootEndpoint
+                .ConversionByDateIntervalEndpointWithParameters(
+                    amount,
+                    from,
+                    to,
+                    startDate,
+                    endDate
+                );
+
+            var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
+                .ConfigureAwait(false);
+
+            if (response.IsNull()) return null;
+
+            return response.ToExchangeList();
+        }
     }
 }
