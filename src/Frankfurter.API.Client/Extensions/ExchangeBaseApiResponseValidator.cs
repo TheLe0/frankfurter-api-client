@@ -11,7 +11,6 @@ namespace Frankfurter.API.Client.Extensions
             if (exchangeBaseApiResponse.Rates == null) return true;
             if (exchangeBaseApiResponse.Amount == decimal.Zero) return true;
             if (exchangeBaseApiResponse.Currency == null) return true;
-            if (exchangeBaseApiResponse.ReferenceDate == DateTime.MinValue) return true;
 
             return false;
         }
