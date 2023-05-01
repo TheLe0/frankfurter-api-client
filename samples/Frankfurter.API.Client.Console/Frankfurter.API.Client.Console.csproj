@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Frankfurter.API.Client\Frankfurter.API.Client.csproj" />
+    <PackageReference Include="Frankfurter.API.Client" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
