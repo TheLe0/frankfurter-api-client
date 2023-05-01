@@ -2,7 +2,29 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Version>1.0.0</Version>
+    <Authors>Leonardo Tosin</Authors>
+    <PackageProjectUrl>https://github.com/TheLe0/frankfurter-api-client</PackageProjectUrl>
+    <PackageIconUrl>https://user-images.githubusercontent.com/40045069/235474192-f401db30-9f2f-4202-8370-4670ab6d6953.png</PackageIconUrl>
+    <PackageIcon>images\logo.png</PackageIcon>
+    <PackageTags>API Client Currency Exchange</PackageTags>
+	  <Description>A DI package for the Frankfurter.API.Client package</Description>
+	  <Copyright>Copyright © Leonardo Tosin</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+	  <AssemblyVersion>1.0.0</AssemblyVersion>
+	  <FileVersion>1.0.0</FileVersion>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
+    <PackageVersion>1.0.0</PackageVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\logo.png" Pack="true" Visible="false" PackagePath="images\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Frankfurter.API.Client" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+  </ItemGroup>
 
 </Project>
