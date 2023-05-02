@@ -7,6 +7,7 @@
     <PackageProjectUrl>https://github.com/TheLe0/frankfurter-api-client</PackageProjectUrl>
     <PackageIconUrl>https://user-images.githubusercontent.com/40045069/235474192-f401db30-9f2f-4202-8370-4670ab6d6953.png</PackageIconUrl>
     <PackageIcon>images\logo.png</PackageIcon>
+    <PackageReadmeFile>docs\README.md</PackageReadmeFile>
     <PackageTags>API Client Currency Exchange</PackageTags>
 	  <Description>A .NET client library for a currency exchange REST API called Frankfurter</Description>
 	  <Copyright>Copyright © Leonardo Tosin</Copyright>
@@ -20,6 +21,7 @@
 
   <ItemGroup>
     <None Include="..\..\logo.png" Pack="true" Visible="false" PackagePath="images\logo.png" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="docs\README.md"/>
   </ItemGroup>
 
   <ItemGroup>
