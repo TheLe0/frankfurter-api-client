@@ -1,145 +1,51 @@
 ﻿using Frankfurter.API.Client.Domain;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 
 namespace Frankfurter.API.Client.Extensions
 {
     internal static class EndpointParameterBuilder
     {
-
-        internal static string ConversionEndpointWithParameters(this string endpoint, decimal amount, CurrencyCode from, CurrencyCode to)
+        internal static string ToString(this IEnumerable<CurrencyCode> currencies)
         {
-            var fullEndPoint = new StringBuilder(endpoint);
-            var isFirstParameter = true;
+            var currenciesStr = new StringBuilder();
+            var isFirstRow = true;
 
-            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-            fullEndPoint.Append("amount=" + amount);
-
-            if (from != CurrencyCode.None)
-            {
-                fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-                fullEndPoint.Append("from=" + from.ToString());
-            }
-
-            if (to != CurrencyCode.None)
-            {
-                fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-                fullEndPoint.Append("to=" + to.ToString());
-            }
-
-            return fullEndPoint.ToString();
-        }
-
-        internal static string ConversionEndpointWithParameters(this string endpoint, decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to)
-        {
-            var fullEndPoint = new StringBuilder(endpoint);
-            var isFirstParameter = true;
-
-            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-            fullEndPoint.Append("amount=" + amount);
-
-            if (from != CurrencyCode.None)
-            {
-                fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-                fullEndPoint.Append("from=" + from.ToString());
-            }
-
-            var isFirstElement = true;
-
-            foreach (var currency in to)
+            foreach (var currency in currencies)
             {
                 if (currency != CurrencyCode.None)
                 {
-                    if (isFirstElement)
+                    if (isFirstRow)
                     {
-                        fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-                        fullEndPoint.Append("to=");
-                        isFirstElement = false;
+                        currenciesStr.Append(',');
                     }
                     else
                     {
-                        fullEndPoint.Append(',');
+                        isFirstRow = false;
                     }
 
-                    fullEndPoint.Append(currency.ToString());
+                    currenciesStr.Append(currency.ToString());
                 }
             }
 
-            return fullEndPoint.ToString();
+            return currenciesStr.ToString();
         }
 
-        internal static string ConversionByDateEndpointWithParameters(this string endpoint, DateTime referenceDate, decimal amount, CurrencyCode from)
+        internal static string DateIntervalToString(DateTime startDate, DateTime? fromDate)
         {
-            var fullEndPoint = new StringBuilder(endpoint);
-            var isFirstParameter = true;
+            var dateInterval = new StringBuilder(startDate.ToString("yyyy-MM-dd"));
 
-            fullEndPoint.Append(referenceDate.ToString("yyyy-MM-dd"));
+            dateInterval.Append("..");
 
-            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-            fullEndPoint.Append("amount=" + amount);
-
-            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-            fullEndPoint.Append("from=" + from.ToString());
-
-            return fullEndPoint.ToString();
-        }
-
-        internal static string ConversionByDateIntervalEndpointWithParameters(this string endpoint,  decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to, DateTime startDate, DateTime? endDate = null)
-        {
-            var fullEndPoint = new StringBuilder(endpoint);
-            var isFirstParameter = true;
-
-            fullEndPoint.Append(startDate.ToString("yyyy-MM-dd"));
-            fullEndPoint.Append("..");
-
-            if (endDate != null)
+            if (fromDate != null)
             {
-                fullEndPoint.Append(endDate?.ToString("yyyy-MM-dd"));
+                dateInterval.Append(fromDate?.ToString("yyyy-MM-dd"));
             }
 
-            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-            fullEndPoint.Append("amount=" + amount);
-
-            fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-            fullEndPoint.Append("from=" + from.ToString());
-
-            var isFirstElement = true;
-
-            foreach (var currency in to)
-            {
-                if (currency != CurrencyCode.None)
-                {
-                    if (isFirstElement)
-                    {
-                        fullEndPoint.AddParameterSeparator(ref isFirstParameter);
-                        fullEndPoint.Append("to=");
-                        isFirstElement = false;
-                    }
-                    else
-                    {
-                        fullEndPoint.Append(',');
-                    }
-
-                    fullEndPoint.Append(currency.ToString());
-                }
-            }
-
-            return fullEndPoint.ToString();
-        }
-
-        private static void AddParameterSeparator(this StringBuilder parameter, ref bool isFirstParameter)
-        {
-            if (isFirstParameter)
-            {
-                parameter.Append('?');
-
-                isFirstParameter = false;
-            }
-            else
-            {
-                parameter.Append('&');
-            }
+            return dateInterval.ToString();
         }
     }
+
 }

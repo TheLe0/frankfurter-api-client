@@ -21,11 +21,12 @@
 
   <ItemGroup>
     <None Include="..\..\logo.png" Pack="true" Visible="false" PackagePath="images\logo.png" />
-    <None Include="..\..\README.md" Pack="true" PackagePath="docs\README.md"/>
+    <None Include="..\..\README.md" Pack="true" PackagePath="docs\README.md" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="Flurl" Version="3.0.7" />
   </ItemGroup>
 
   <ItemGroup>

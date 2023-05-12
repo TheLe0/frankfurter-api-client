@@ -27,12 +27,14 @@ namespace Frankfurter.API.Client.Infraestructure
             _client = new RestClient(GetConfigurations());
         }
 
-        public Task<T> GetAsync<T>(string endpoint)
+        public Task<T> GetAsync<T>(RestRequest request)
         {
-            var fullEndpoint = _configuration.BaseApiUrl
-                + endpoint;
+            return _client.GetAsync<T>(request);
+        }
 
-            return _client.GetJsonAsync<T>(fullEndpoint);
+        public string GetBaseUrl()
+        {
+            return _configuration.BaseApiUrl;
         }
 
         private RestClientOptions GetConfigurations()
