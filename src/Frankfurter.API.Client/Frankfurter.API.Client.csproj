@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>Leonardo Tosin</Authors>
     <PackageProjectUrl>https://github.com/TheLe0/frankfurter-api-client</PackageProjectUrl>
     <PackageIconUrl>https://user-images.githubusercontent.com/40045069/235474192-f401db30-9f2f-4202-8370-4670ab6d6953.png</PackageIconUrl>
@@ -12,20 +12,21 @@
 	  <Description>A .NET client library for a currency exchange REST API called Frankfurter</Description>
 	  <Copyright>Copyright © Leonardo Tosin</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-	  <AssemblyVersion>1.0.0</AssemblyVersion>
-	  <FileVersion>1.0.0</FileVersion>
+	  <AssemblyVersion>1.1.0</AssemblyVersion>
+	  <FileVersion>1.1.0</FileVersion>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\..\logo.png" Pack="true" Visible="false" PackagePath="images\logo.png" />
-    <None Include="..\..\README.md" Pack="true" PackagePath="docs\README.md"/>
+    <None Include="..\..\README.md" Pack="true" PackagePath="docs\README.md" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="Flurl" Version="3.0.7" />
   </ItemGroup>
 
   <ItemGroup>

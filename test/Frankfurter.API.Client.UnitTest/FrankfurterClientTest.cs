@@ -4,6 +4,7 @@ using Frankfurter.API.Client.DTO.Response;
 using Frankfurter.API.Client.Fixtures.Core;
 using Frankfurter.API.Client.Fixtures.DTO;
 using Frankfurter.API.Client.Infraestructure;
+using RestSharp;
 using System.Text.Json.Nodes;
 
 namespace Frankfurter.API.Client.UnitTest
@@ -23,7 +24,7 @@ namespace Frankfurter.API.Client.UnitTest
         public async void GetAllAvaliableCurrenciesAsync_Success()
         {
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<JsonObject>(It.IsAny<string>()))
+                _.GetAsync<JsonObject>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(JsonObjectFixture.GenerateCurrenciesJsonObject());
 
             var currencies = await _client.GetAllAvaliableCurrenciesAsync();
@@ -37,7 +38,7 @@ namespace Frankfurter.API.Client.UnitTest
         public async void GetAllAvaliableCurrenciesAsync_Fail_NullResponse()
         {
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<JsonObject>(It.IsAny<string>()))
+                _.GetAsync<JsonObject>(It.IsAny<RestRequest>()))
                 .ReturnsAsync((JsonObject)null);
 
             var currencies = await _client.GetAllAvaliableCurrenciesAsync();
@@ -57,7 +58,7 @@ namespace Frankfurter.API.Client.UnitTest
             var toCurrency = (CurrencyCode) conversionCurrency;
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(ExchangeBaseApiResponseFixture
                 .GenerateForExchangeBaseApiResponse(amount, fromCurrency, toCurrency));
 
@@ -83,7 +84,7 @@ namespace Frankfurter.API.Client.UnitTest
 
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync((ExchangeBaseApiResponse) null);
 
             var exchange = await _client
@@ -104,7 +105,7 @@ namespace Frankfurter.API.Client.UnitTest
             var referenceDate = new DateTime(2014, 1, 1);
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(ExchangeBaseApiResponseFixture
                 .GenerateForExchangeByDateApiResponse(referenceDate, amount, fromCurrency));
 
@@ -129,7 +130,7 @@ namespace Frankfurter.API.Client.UnitTest
             var referenceDate = new DateTime(2014, 1, 1);
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync((ExchangeBaseApiResponse)null);
 
             var exchange = await _client
@@ -149,7 +150,7 @@ namespace Frankfurter.API.Client.UnitTest
             var fromCurrency = (CurrencyCode)baseCurrency;
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(ExchangeBaseApiResponseFixture
                 .GenerateForExchangeBaseApiResponse(amount, fromCurrency, CurrencyCode.USD));
 
@@ -174,7 +175,7 @@ namespace Frankfurter.API.Client.UnitTest
             var referenceDate = new DateTime(2014, 1, 1);
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(ExchangeBaseApiResponseFixture.GenerateNullResponse());
 
             var exchange = await _client
@@ -200,7 +201,7 @@ namespace Frankfurter.API.Client.UnitTest
             };
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(ExchangeBaseApiResponseFixture
                 .GenerateForExchangeBaseApiResponse(amount, fromCurrency, CurrencyCode.USD));
 
@@ -230,7 +231,7 @@ namespace Frankfurter.API.Client.UnitTest
             };
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(ExchangeBaseApiResponseFixture.GenerateNullResponse());
 
             var exchange = await _client
@@ -259,7 +260,7 @@ namespace Frankfurter.API.Client.UnitTest
             };
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(ExchangeBaseApiResponseFixture
                 .GenerateForExchangeWithIntervalBaseApiResponse(
                     amount,
@@ -300,7 +301,7 @@ namespace Frankfurter.API.Client.UnitTest
             };
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(ExchangeBaseApiResponseFixture.GenerateNullResponse());
 
             var exchange = await _client
@@ -334,7 +335,7 @@ namespace Frankfurter.API.Client.UnitTest
             };
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(ExchangeBaseApiResponseFixture
                 .GenerateForExchangeWithIntervalBaseApiResponse(
                     amount,
@@ -375,7 +376,7 @@ namespace Frankfurter.API.Client.UnitTest
             };
 
             _mockHttpClient.Setup(_ =>
-                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<string>()))
+                _.GetAsync<ExchangeBaseApiResponse>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(ExchangeBaseApiResponseFixture.GenerateNullResponse());
 
             var exchange = await _client

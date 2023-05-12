@@ -20,7 +20,9 @@ namespace Frankfurter.API.Client
 
         public async Task<IEnumerable<Currency>> GetAllAvaliableCurrenciesAsync()
         {
-            var response = await GetAsync<JsonObject>(Routes.CurrencyEndpoint)
+            Endpoint.AppendPathSegment(Routes.CurrencyEndpoint);
+
+            var response = await GetAsync<JsonObject>()
                 .ConfigureAwait(false);
 
             if (response == null) return null;
@@ -30,13 +32,13 @@ namespace Frankfurter.API.Client
 
         public async Task<Exchange> CurrencyConvertAsync(decimal amount, CurrencyCode from, CurrencyCode to)
         {
-            var endpoint = Routes.LatestEndpoint.ConversionEndpointWithParameters(
-                amount,
-                from,
-                to
-            );
+            Endpoint.AppendPathSegment(Routes.LatestEndpoint);
 
-            var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
+            if (amount > decimal.Zero) Endpoint.SetQueryParam("amount", amount);
+            if (from != CurrencyCode.None) Endpoint.SetQueryParam("from", from.ToString());
+            if (to != CurrencyCode.None) Endpoint.SetQueryParam("to", to.ToString());
+
+            var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);
 
             if (response == null) return null;
@@ -46,13 +48,13 @@ namespace Frankfurter.API.Client
 
         public async Task<Exchange> CurrencyConvertByDateAsync(DateTime referenceDate, decimal amount, CurrencyCode from)
         {
-            var endpoint = Routes.RootEndpoint.ConversionByDateEndpointWithParameters(
-                referenceDate,
-                amount,
-                from
-            );
+            Endpoint.AppendPathSegment(Routes.RootEndpoint);
+            Endpoint.AppendPathSegment(referenceDate.ToString("yyyy-MM-dd"));
 
-            var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
+            if (amount > decimal.Zero) Endpoint.SetQueryParam("amount", amount);
+            if (from != CurrencyCode.None) Endpoint.SetQueryParam("from", from.ToString());
+
+            var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);
 
             if (response.IsNull()) return null;
@@ -62,14 +64,12 @@ namespace Frankfurter.API.Client
 
         public async Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from)
         {
-            var endpoint = Routes.LatestEndpoint
-                .ConversionEndpointWithParameters(
-                amount,
-                from,
-                CurrencyCode.None
-            );
+            Endpoint.AppendPathSegment(Routes.LatestEndpoint);
 
-            var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
+            if (amount > decimal.Zero) Endpoint.SetQueryParam("amount", amount);
+            if (from != CurrencyCode.None) Endpoint.SetQueryParam("from", from.ToString());
+
+            var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);
 
             if (response.IsNull()) return null;
@@ -79,14 +79,14 @@ namespace Frankfurter.API.Client
 
         public async Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to)
         {
-            var endpoint = Routes.LatestEndpoint
-                .ConversionEndpointWithParameters(
-                    amount,
-                    from,
-                    to
-            );
+            Endpoint.AppendPathSegment(Routes.LatestEndpoint);
 
-            var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
+            if (amount > decimal.Zero) Endpoint.SetQueryParam("amount", amount);
+            if (from != CurrencyCode.None) Endpoint.SetQueryParam("from", from.ToString());
+            if (to != null) Endpoint.SetQueryParam("to", to.ToParameter());
+
+
+            var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);
 
             if (response.IsNull()) return null;
@@ -96,16 +96,17 @@ namespace Frankfurter.API.Client
 
         public async Task<IEnumerable<Exchange>> CurrencyConvertByDateIntervalAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to, DateTime startDate, DateTime? endDate = null)
         {
-            var endpoint = Routes.RootEndpoint
-                .ConversionByDateIntervalEndpointWithParameters(
-                    amount,
-                    from,
-                    to,
-                    startDate,
-                    endDate
-                );
+            Endpoint.AppendPathSegment(Routes.RootEndpoint);
 
-            var response = await GetAsync<ExchangeBaseApiResponse>(endpoint)
+            Endpoint.AppendPathSegment(
+                EndpointParameterBuilder.DateIntervalToString(startDate, endDate)
+            );
+
+            if (amount > decimal.Zero) Endpoint.SetQueryParam("amount", amount);
+            if (from != CurrencyCode.None) Endpoint.SetQueryParam("from", from.ToString());
+            if (to != null) Endpoint.SetQueryParam("to", to.ToParameter());
+
+            var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);
 
             if (response.IsNull()) return null;
