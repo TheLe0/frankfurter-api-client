@@ -83,7 +83,7 @@ namespace Frankfurter.API.Client
 
             if (amount > decimal.Zero) Endpoint.SetQueryParam("amount", amount);
             if (from != CurrencyCode.None) Endpoint.SetQueryParam("from", from.ToString());
-            if (to != null) Endpoint.SetQueryParam("to", to.ToString());
+            if (to != null) Endpoint.SetQueryParam("to", to.ToParameter());
 
 
             var response = await GetAsync<ExchangeBaseApiResponse>()
@@ -104,7 +104,7 @@ namespace Frankfurter.API.Client
 
             if (amount > decimal.Zero) Endpoint.SetQueryParam("amount", amount);
             if (from != CurrencyCode.None) Endpoint.SetQueryParam("from", from.ToString());
-            if (to != null) Endpoint.SetQueryParam("to", to.ToString());
+            if (to != null) Endpoint.SetQueryParam("to", to.ToParameter());
 
             var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);

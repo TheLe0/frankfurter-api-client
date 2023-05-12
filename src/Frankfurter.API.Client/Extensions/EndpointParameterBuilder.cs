@@ -8,7 +8,7 @@ namespace Frankfurter.API.Client.Extensions
 {
     internal static class EndpointParameterBuilder
     {
-        internal static string ToString(this IEnumerable<CurrencyCode> currencies)
+        internal static string ToParameter(this IEnumerable<CurrencyCode> currencies)
         {
             var currenciesStr = new StringBuilder();
             var isFirstRow = true;
