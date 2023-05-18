@@ -9,9 +9,11 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <PackageReference Include="Frankfurter.API.Client.DependencyInjection" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Frankfurter.API.Client.DependencyInjection\Frankfurter.API.Client.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>
