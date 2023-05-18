@@ -19,9 +19,9 @@ namespace Frankfurter.API.Client.IntegrationTest
         }
 
         [Fact]
-        public async void GetAllAvaliableCurrenciesAsync_Success()
+        public async void GetAllAvailableCurrenciesAsync_Success()
         {
-            var currencies = await _client.GetAllAvaliableCurrenciesAsync();
+            var currencies = await _client.GetAllAvailableCurrenciesAsync();
 
             Assert.NotNull(currencies);
             Assert.NotEmpty(currencies);
@@ -29,7 +29,7 @@ namespace Frankfurter.API.Client.IntegrationTest
         }
 
         [Fact]
-        public async void GetAllAvaliableCurrenciesAsync_Fail_Timeout()
+        public async void GetAllAvailableCurrenciesAsync_Fail_Timeout()
         {
             var configuration = new FrankfurterClientConfiguration
             {
@@ -40,7 +40,7 @@ namespace Frankfurter.API.Client.IntegrationTest
 
             var client = new FrankfurterClient(configuration);
 
-            Func<Task> act = () => client.GetAllAvaliableCurrenciesAsync();
+            Func<Task> act = () => client.GetAllAvailableCurrenciesAsync();
 
             await Assert.ThrowsAsync<TimeoutException>(act);
         }

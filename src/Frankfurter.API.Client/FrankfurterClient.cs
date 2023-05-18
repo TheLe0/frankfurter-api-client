@@ -18,7 +18,7 @@ namespace Frankfurter.API.Client
         public FrankfurterClient(FrankfurterClientConfiguration configuration) : base(configuration) { }
         public FrankfurterClient(IFrankfurterClientHttpClient restApiClient) : base(restApiClient) { }
 
-        public async Task<IEnumerable<Currency>> GetAllAvaliableCurrenciesAsync()
+        public async Task<IEnumerable<Currency>> GetAllAvailableCurrenciesAsync()
         {
             Endpoint.AppendPathSegment(Routes.CurrencyEndpoint);
 
