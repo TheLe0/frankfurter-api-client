@@ -70,7 +70,7 @@ namespace Frankfurter.API.Client.Extensions
             else if (currencyCodeStr == Currencies.UnitedStatesDollar)
                 return CurrencyCode.USD;
             else
-                return CurrencyCode.None;
+                return CurrencyCode.NONE;
         }
 
         internal static string ToString(this CurrencyCode currencyCode)

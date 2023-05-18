@@ -2,7 +2,7 @@
 {
     public enum CurrencyCode
     {
-        None,
+        NONE,
         AUD, // Australian Dollar
         BGN, // Bulgarian Lev
         BRL, // Brazilian Real

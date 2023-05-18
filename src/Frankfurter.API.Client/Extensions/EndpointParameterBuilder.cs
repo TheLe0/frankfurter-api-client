@@ -15,7 +15,7 @@ namespace Frankfurter.API.Client.Extensions
 
             foreach (var currency in currencies)
             {
-                if (currency != CurrencyCode.None)
+                if (currency != CurrencyCode.NONE)
                 {
                     if (isFirstRow)
                     {
