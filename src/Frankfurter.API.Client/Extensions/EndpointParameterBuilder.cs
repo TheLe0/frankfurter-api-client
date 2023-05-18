@@ -1,7 +1,6 @@
 ﻿using Frankfurter.API.Client.Domain;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Text;
 
 namespace Frankfurter.API.Client.Extensions
@@ -11,23 +10,13 @@ namespace Frankfurter.API.Client.Extensions
         internal static string ToParameter(this IEnumerable<CurrencyCode> currencies)
         {
             var currenciesStr = new StringBuilder();
-            var isFirstRow = true;
 
             foreach (var currency in currencies)
             {
-                if (currency != CurrencyCode.NONE)
-                {
-                    if (isFirstRow)
-                    {
-                        currenciesStr.Append(',');
-                    }
-                    else
-                    {
-                        isFirstRow = false;
-                    }
-
-                    currenciesStr.Append(currency.ToString());
-                }
+                if (currency == CurrencyCode.NONE) continue;
+                
+                currenciesStr.Append(',');
+                currenciesStr.Append(currency.ToString());
             }
 
             return currenciesStr.ToString();
