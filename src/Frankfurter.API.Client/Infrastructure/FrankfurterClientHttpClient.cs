@@ -1,8 +1,8 @@
-﻿using Frankfurter.API.Client.Configuration;
+﻿using System.Threading.Tasks;
+using Frankfurter.API.Client.Configuration;
 using RestSharp;
-using System.Threading.Tasks;
 
-namespace Frankfurter.API.Client.Infraestructure
+namespace Frankfurter.API.Client.Infrastructure
 {
     public class FrankfurterClientHttpClient : IFrankfurterClientHttpClient
     {

@@ -2,12 +2,12 @@
 using Frankfurter.API.Client.Domain;
 using Frankfurter.API.Client.DTO.Response;
 using Frankfurter.API.Client.Extensions;
-using Frankfurter.API.Client.Infraestructure;
 using Frankfurter.API.Client.Resources;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using Frankfurter.API.Client.Infrastructure;
 
 namespace Frankfurter.API.Client
 {

@@ -3,9 +3,9 @@ using Frankfurter.API.Client.Domain;
 using Frankfurter.API.Client.DTO.Response;
 using Frankfurter.API.Client.Fixtures.Core;
 using Frankfurter.API.Client.Fixtures.DTO;
-using Frankfurter.API.Client.Infraestructure;
 using RestSharp;
 using System.Text.Json.Nodes;
+using Frankfurter.API.Client.Infrastructure;
 
 namespace Frankfurter.API.Client.UnitTest
 {

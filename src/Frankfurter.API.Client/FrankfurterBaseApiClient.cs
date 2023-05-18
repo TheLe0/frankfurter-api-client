@@ -1,9 +1,8 @@
 ﻿using Flurl;
 using Frankfurter.API.Client.Configuration;
-using Frankfurter.API.Client.Infraestructure;
 using RestSharp;
-using System.Net.Http;
 using System.Threading.Tasks;
+using Frankfurter.API.Client.Infrastructure;
 
 namespace Frankfurter.API.Client
 {

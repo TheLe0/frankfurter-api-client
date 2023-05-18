@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using RestSharp;
 
-namespace Frankfurter.API.Client.Infraestructure
+namespace Frankfurter.API.Client.Infrastructure
 {
     public interface IFrankfurterClientHttpClient
     {
