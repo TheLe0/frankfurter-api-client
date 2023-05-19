@@ -7,70 +7,39 @@ namespace Frankfurter.API.Client.Extensions
     {
         internal static CurrencyCode ToCurrencyCode(this string currencyCodeStr)
         {
-            if (currencyCodeStr == Currencies.AustralianDollar)
-                return CurrencyCode.AUD;
-            else if (currencyCodeStr == Currencies.BrazilianReal)
-                return CurrencyCode.BRL;
-            else if (currencyCodeStr == Currencies.BritishPound)
-                return CurrencyCode.GBP;
-            else if (currencyCodeStr == Currencies.BulgarianLev)
-                return CurrencyCode.BGN;
-            else if (currencyCodeStr == Currencies.CanadianDollar)
-                return CurrencyCode.CAD;
-            else if (currencyCodeStr == Currencies.ChineseRenminbiYuan)
-                return CurrencyCode.CNY;
-            else if (currencyCodeStr == Currencies.CzechKoruna)
-                return CurrencyCode.CZK;
-            else if (currencyCodeStr == Currencies.DanishKrone)
-                return CurrencyCode.DKK;
-            else if (currencyCodeStr == Currencies.Euro)
-                return CurrencyCode.EUR;
-            else if (currencyCodeStr == Currencies.HongKongDollar)
-                return CurrencyCode.HKD;
-            else if (currencyCodeStr == Currencies.HungarianForint)
-                return CurrencyCode.HUF;
-            else if (currencyCodeStr == Currencies.IcelandicKrona)
-                return CurrencyCode.ISK;
-            else if (currencyCodeStr == Currencies.IndianRupee)
-                return CurrencyCode.INR;
-            else if (currencyCodeStr == Currencies.IndonesianRupiah)
-                return CurrencyCode.IDR;
-            else if (currencyCodeStr == Currencies.IsraeliNewSheqel)
-                return CurrencyCode.ILS;
-            else if (currencyCodeStr == Currencies.JapaneseYen)
-                return CurrencyCode.JPY;
-            else if (currencyCodeStr == Currencies.MalaysianRinggit)
-                return CurrencyCode.MYR;
-            else if (currencyCodeStr == Currencies.MexicanPeso)
-                return CurrencyCode.MXN;
-            else if (currencyCodeStr == Currencies.NewZealandDollar)
-                return CurrencyCode.NZD;
-            else if (currencyCodeStr == Currencies.NorwegianKrone)
-                return CurrencyCode.NOK;
-            else if (currencyCodeStr == Currencies.PhilippinePeso)
-                return CurrencyCode.PHP;
-            else if (currencyCodeStr == Currencies.PolishZloty)
-                return CurrencyCode.PLN;
-            else if (currencyCodeStr == Currencies.RomanianLeu)
-                return CurrencyCode.RON;
-            else if (currencyCodeStr == Currencies.SingaporeDollar)
-                return CurrencyCode.SGD;
-            else if (currencyCodeStr == Currencies.SouthAfricanRand)
-                return CurrencyCode.ZAR;
-            else if (currencyCodeStr == Currencies.SouthKoreanWon)
-                return CurrencyCode.KRW;
-            else if (currencyCodeStr == Currencies.SwedishKrona)
-                return CurrencyCode.SEK;
-            else if (currencyCodeStr == Currencies.SwissFranc)
-                return CurrencyCode.CHF;
-            else if (currencyCodeStr == Currencies.ThaiBaht)
-                return CurrencyCode.THB;
-            else if (currencyCodeStr == Currencies.TurkishLira)
-                return CurrencyCode.TRY;
-            else if (currencyCodeStr == Currencies.UnitedStatesDollar)
-                return CurrencyCode.USD;
-            else
-                return CurrencyCode.NONE;
+            if (currencyCodeStr == Currencies.AustralianDollar) return CurrencyCode.AUD;
+            if (currencyCodeStr == Currencies.BrazilianReal) return CurrencyCode.BRL;
+            if (currencyCodeStr == Currencies.BritishPound) return CurrencyCode.GBP;
+            if (currencyCodeStr == Currencies.BulgarianLev) return CurrencyCode.BGN;
+            if (currencyCodeStr == Currencies.CanadianDollar) return CurrencyCode.CAD;
+            if (currencyCodeStr == Currencies.ChineseRenminbiYuan) return CurrencyCode.CNY;
+            if (currencyCodeStr == Currencies.CzechKoruna) return CurrencyCode.CZK;
+            if (currencyCodeStr == Currencies.DanishKrone) return CurrencyCode.DKK;
+            if (currencyCodeStr == Currencies.Euro) return CurrencyCode.EUR;
+            if (currencyCodeStr == Currencies.HongKongDollar) return CurrencyCode.HKD;
+            if (currencyCodeStr == Currencies.HungarianForint) return CurrencyCode.HUF;
+            if (currencyCodeStr == Currencies.IcelandicKrona) return CurrencyCode.ISK;
+            if (currencyCodeStr == Currencies.IndianRupee) return CurrencyCode.INR;
+            if (currencyCodeStr == Currencies.IndonesianRupiah) return CurrencyCode.IDR;
+            if (currencyCodeStr == Currencies.IsraeliNewSheqel) return CurrencyCode.ILS;
+            if (currencyCodeStr == Currencies.JapaneseYen) return CurrencyCode.JPY;
+            if (currencyCodeStr == Currencies.MalaysianRinggit) return CurrencyCode.MYR;
+            if (currencyCodeStr == Currencies.MexicanPeso) return CurrencyCode.MXN;
+            if (currencyCodeStr == Currencies.NewZealandDollar) return CurrencyCode.NZD;
+            if (currencyCodeStr == Currencies.NorwegianKrone) return CurrencyCode.NOK;
+            if (currencyCodeStr == Currencies.PhilippinePeso) return CurrencyCode.PHP;
+            if (currencyCodeStr == Currencies.PolishZloty) return CurrencyCode.PLN;
+            if (currencyCodeStr == Currencies.RomanianLeu) return CurrencyCode.RON;
+            if (currencyCodeStr == Currencies.SingaporeDollar) return CurrencyCode.SGD;
+            if (currencyCodeStr == Currencies.SouthAfricanRand) return CurrencyCode.ZAR;
+            if (currencyCodeStr == Currencies.SouthKoreanWon) return CurrencyCode.KRW;
+            if (currencyCodeStr == Currencies.SwedishKrona) return CurrencyCode.SEK;
+            if (currencyCodeStr == Currencies.SwissFranc) return CurrencyCode.CHF;
+            if (currencyCodeStr == Currencies.ThaiBaht) return CurrencyCode.THB;
+            if (currencyCodeStr == Currencies.TurkishLira) return CurrencyCode.TRY;
+            if (currencyCodeStr == Currencies.UnitedStatesDollar) return CurrencyCode.USD;
+
+            return CurrencyCode.NONE;
         }
 
         internal static string ToString(this CurrencyCode currencyCode)
