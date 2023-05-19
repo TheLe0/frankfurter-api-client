@@ -6,7 +6,7 @@ namespace Frankfurter.API.Client.IntegrationTest
     public class FrankfurterClientTest
     {
         private readonly IFrankfurterClient _client;
-        private const string _wrongBaseUrl = "http://localhost:4200";
+        private const string WrongBaseUrl = "http://localhost:4200";
 
         public FrankfurterClientTest()
         {
@@ -33,7 +33,7 @@ namespace Frankfurter.API.Client.IntegrationTest
         {
             var configuration = new FrankfurterClientConfiguration
             {
-                BaseApiUrl = _wrongBaseUrl,
+                BaseApiUrl = WrongBaseUrl,
                 MaxTimeout = 1,
                 ThrowOnAnyError = true
             };
