@@ -20,9 +20,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/currencies", (IFrankfurterClient client) =>
-{
-    return client.GetAllAvaliableCurrenciesAsync();
-})
+app.MapGet("/currencies", (IFrankfurterClient client) 
+        => client.GetAllAvaliableCurrenciesAsync())
 .WithName("Currencies")
 .WithOpenApi();

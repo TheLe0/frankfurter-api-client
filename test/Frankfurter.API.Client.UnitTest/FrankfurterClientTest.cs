@@ -1,5 +1,4 @@
-﻿using Bogus.DataSets;
-using Frankfurter.API.Client.Domain;
+﻿using Frankfurter.API.Client.Domain;
 using Frankfurter.API.Client.DTO.Response;
 using Frankfurter.API.Client.Fixtures.Core;
 using Frankfurter.API.Client.Fixtures.DTO;

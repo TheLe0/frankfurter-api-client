@@ -62,4 +62,4 @@ var exchanges = await frankfurter
         new DateTime(2021,1,1) // End Date
     ).ConfigureAwait(false);
 
-Console.WriteLine("Finish Execution!");
+Console.WriteLine(@"Finish Execution!");
