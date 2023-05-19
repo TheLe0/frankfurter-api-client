@@ -6,7 +6,7 @@ namespace Frankfurter.API.Client.IntegrationTest
     public class FrankfurterClientTest
     {
         private readonly IFrankfurterClient _client;
-        private const string _wrongBaseUrl = "http://localhost:4200";
+        private const string WrongBaseUrl = "http://localhost:4200";
 
         public FrankfurterClientTest()
         {
@@ -19,9 +19,9 @@ namespace Frankfurter.API.Client.IntegrationTest
         }
 
         [Fact]
-        public async void GetAllAvaliableCurrenciesAsync_Success()
+        public async void GetAllAvailableCurrenciesAsync_Success()
         {
-            var currencies = await _client.GetAllAvaliableCurrenciesAsync();
+            var currencies = await _client.GetAllAvailableCurrenciesAsync();
 
             Assert.NotNull(currencies);
             Assert.NotEmpty(currencies);
@@ -29,18 +29,18 @@ namespace Frankfurter.API.Client.IntegrationTest
         }
 
         [Fact]
-        public async void GetAllAvaliableCurrenciesAsync_Fail_Timeout()
+        public async void GetAllAvailableCurrenciesAsync_Fail_Timeout()
         {
             var configuration = new FrankfurterClientConfiguration
             {
-                BaseApiUrl = _wrongBaseUrl,
+                BaseApiUrl = WrongBaseUrl,
                 MaxTimeout = 1,
                 ThrowOnAnyError = true
             };
 
             var client = new FrankfurterClient(configuration);
 
-            Func<Task> act = () => client.GetAllAvaliableCurrenciesAsync();
+            Func<Task> act = () => client.GetAllAvailableCurrenciesAsync();
 
             await Assert.ThrowsAsync<TimeoutException>(act);
         }

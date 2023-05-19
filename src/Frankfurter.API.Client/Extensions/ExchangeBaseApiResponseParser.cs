@@ -21,23 +21,16 @@ namespace Frankfurter.API.Client.Extensions
 
         internal static IEnumerable<Exchange> ToExchangeList(this ExchangeBaseApiResponse apiResponse)
         {
-            var exchangeList = new List<Exchange>();
             var listJsonObjs = apiResponse.Rates.ToArray();
 
-            for (var i = 0; i < listJsonObjs.Length; i++)
-            {
-                exchangeList.Add(
-                    new Exchange
-                    {
-                        ReferenceDate = DateTime.Parse(listJsonObjs[i].Key),
-                        ReferenceAmount = apiResponse.Amount,
-                        ReferenceCurrency = apiResponse.Currency.ToCurrencyCode(),
-                        Rates = listJsonObjs[i].Value.AsObject().ToCurrencyRateList()
-                    }
-                );
-            }
-
-            return exchangeList;
+            return listJsonObjs.Select(node 
+                => new Exchange
+                {
+                    ReferenceDate = DateTime.Parse(node.Key), 
+                    ReferenceAmount = apiResponse.Amount, 
+                    ReferenceCurrency = apiResponse.Currency.ToCurrencyCode(), 
+                    Rates = node.Value.AsObject().ToCurrencyRateList()
+                }).ToList();
         }
     }
 }

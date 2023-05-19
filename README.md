@@ -69,11 +69,11 @@ Here I am going to explain the entities containning on this API client. In this 
 
 ## Methods
 
-1. <b>GetAllAvaliableCurrenciesAsync</b>: Returns all the currently avaliable currencies on the API
+1. <b>GetAllAvailableCurrenciesAsync</b>: Returns all the currently avaliable currencies on the API
 
 ```csharp
 var currencies = await frankfurter
-    .GetAllAvaliableCurrenciesAsync()
+    .GetAllAvailableCurrenciesAsync()
     .ConfigureAwait(false);
 ```
 

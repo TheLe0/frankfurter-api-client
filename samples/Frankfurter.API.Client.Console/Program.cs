@@ -3,9 +3,9 @@ using Frankfurter.API.Client.Domain;
 
 var frankfurter = new FrankfurterClient();
 
-// Get All avaliable currencies
+// Get All available currencies
 var currencies = await frankfurter
-    .GetAllAvaliableCurrenciesAsync()
+    .GetAllAvailableCurrenciesAsync()
     .ConfigureAwait(false);
 
 // Convert a specified amount of one currency to another
@@ -17,7 +17,7 @@ var exchange = await frankfurter
         CurrencyCode.USD // Currency to Convert
     ).ConfigureAwait(false);
 
-// Get the equivalent of one currency in a date to anothers
+// Get the currency equivalency amount of one currency in a date
 
 exchange = await frankfurter
     .CurrencyConvertByDateAsync(
@@ -26,7 +26,7 @@ exchange = await frankfurter
         CurrencyCode.BRL // Reference Currency
     ).ConfigureAwait(false);
 
-// Get the equivalent of one currency in the last published date to anothers
+//  Get the currency equivalency amount of one currency in the last published date
 
 exchange = await frankfurter
     .CurrencyConvertByLastPublishedDateAsync(
@@ -34,7 +34,7 @@ exchange = await frankfurter
         CurrencyCode.BRL // Reference Currency
     ).ConfigureAwait(false);
 
-// Get the equivalent of one currency in the last published date to anothers
+//  Get the currency equivalency amount of one currency in the last published date
 // with specified currencies to convert
 
 var toCurrencies = new List<CurrencyCode>
@@ -62,4 +62,4 @@ var exchanges = await frankfurter
         new DateTime(2021,1,1) // End Date
     ).ConfigureAwait(false);
 
-Console.WriteLine("Finish Execution!");
+Console.WriteLine(@"Finish Execution!");

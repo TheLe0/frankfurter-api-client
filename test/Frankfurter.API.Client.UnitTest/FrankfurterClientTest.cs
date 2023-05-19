@@ -1,11 +1,10 @@
-﻿using Bogus.DataSets;
-using Frankfurter.API.Client.Domain;
+﻿using Frankfurter.API.Client.Domain;
 using Frankfurter.API.Client.DTO.Response;
 using Frankfurter.API.Client.Fixtures.Core;
 using Frankfurter.API.Client.Fixtures.DTO;
-using Frankfurter.API.Client.Infraestructure;
 using RestSharp;
 using System.Text.Json.Nodes;
+using Frankfurter.API.Client.Infrastructure;
 
 namespace Frankfurter.API.Client.UnitTest
 {
@@ -21,13 +20,13 @@ namespace Frankfurter.API.Client.UnitTest
         }
 
         [Fact]
-        public async void GetAllAvaliableCurrenciesAsync_Success()
+        public async void GetAllAvailableCurrenciesAsync_Success()
         {
             _mockHttpClient.Setup(_ =>
                 _.GetAsync<JsonObject>(It.IsAny<RestRequest>()))
                 .ReturnsAsync(JsonObjectFixture.GenerateCurrenciesJsonObject());
 
-            var currencies = await _client.GetAllAvaliableCurrenciesAsync();
+            var currencies = await _client.GetAllAvailableCurrenciesAsync();
 
             Assert.NotNull(currencies);
             Assert.NotEmpty(currencies);
@@ -35,13 +34,13 @@ namespace Frankfurter.API.Client.UnitTest
         }
 
         [Fact]
-        public async void GetAllAvaliableCurrenciesAsync_Fail_NullResponse()
+        public async void GetAllAvailableCurrenciesAsync_Fail_NullResponse()
         {
             _mockHttpClient.Setup(_ =>
                 _.GetAsync<JsonObject>(It.IsAny<RestRequest>()))
                 .ReturnsAsync((JsonObject)null);
 
-            var currencies = await _client.GetAllAvaliableCurrenciesAsync();
+            var currencies = await _client.GetAllAvailableCurrenciesAsync();
 
             Assert.Null(currencies);
         }
