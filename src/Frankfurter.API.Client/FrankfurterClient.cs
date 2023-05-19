@@ -25,9 +25,7 @@ namespace Frankfurter.API.Client
             var response = await GetAsync<JsonObject>()
                 .ConfigureAwait(false);
 
-            if (response == null) return null;
-
-            return response.ToCurrencyList();
+            return response?.ToCurrencyList();
         }
 
         public async Task<Exchange> CurrencyConvertAsync(decimal amount, CurrencyCode from, CurrencyCode to)
@@ -41,9 +39,7 @@ namespace Frankfurter.API.Client
             var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);
 
-            if (response == null) return null;
-
-            return response.ToExchange();
+            return response?.ToExchange();
         }
 
         public async Task<Exchange> CurrencyConvertByDateAsync(DateTime referenceDate, decimal amount, CurrencyCode from)
@@ -57,9 +53,7 @@ namespace Frankfurter.API.Client
             var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);
 
-            if (response.IsNull()) return null;
-
-            return response.ToExchange();
+            return response.IsNull() ? null : response.ToExchange();
         }
 
         public async Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from)
@@ -72,9 +66,7 @@ namespace Frankfurter.API.Client
             var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);
 
-            if (response.IsNull()) return null;
-
-            return response.ToExchange();
+            return response.IsNull() ? null : response.ToExchange();
         }
 
         public async Task<Exchange> CurrencyConvertByLastPublishedDateAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to)
@@ -89,9 +81,7 @@ namespace Frankfurter.API.Client
             var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);
 
-            if (response.IsNull()) return null;
-
-            return response.ToExchange();
+            return response.IsNull() ? null : response.ToExchange();
         }
 
         public async Task<IEnumerable<Exchange>> CurrencyConvertByDateIntervalAsync(decimal amount, CurrencyCode from, IEnumerable<CurrencyCode> to, DateTime startDate, DateTime? endDate = null)
@@ -109,9 +99,7 @@ namespace Frankfurter.API.Client
             var response = await GetAsync<ExchangeBaseApiResponse>()
                 .ConfigureAwait(false);
 
-            if (response.IsNull()) return null;
-
-            return response.ToExchangeList();
+            return response.IsNull() ? null : response.ToExchangeList();
         }
     }
 }
